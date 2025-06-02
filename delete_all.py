@@ -1,6 +1,8 @@
 # WARNING: This script will irreversibly delete AWS resources!
 # Use only in test/dev environments with proper IAM permissions.
 
+#Author: Dhanyamol Devassy
+
 import boto3
 import time
 
@@ -327,6 +329,17 @@ def delete_glue_workflows():
             print(f"Deleted workflow: {wf}")
         except Exception as e:
             print(f"Error deleting workflow {wf}: {e}")
+def delete_glue_triggers():
+    print("Deleting Glue Triggers...")
+    try:
+        triggers = glue.get_triggers()["Triggers"]
+        for trigger in triggers:
+            name = trigger["Name"]
+            glue.delete_trigger(Name=name)
+            print(f"Deleted trigger: {name}")
+    except Exception as e:
+        print(f"Error deleting triggers: {e}")
+
 
 def delete_glue_databases_and_tables():
     print("Deleting Glue Databases and Tables...")
@@ -363,5 +376,6 @@ if __name__ == "__main__":
     delete_glue_jobs()
     delete_glue_crawlers()
     delete_glue_workflows()
+    delete_glue_triggers()
     delete_glue_databases_and_tables()
 
