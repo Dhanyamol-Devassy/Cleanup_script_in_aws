@@ -195,7 +195,6 @@ def delete_vpcs():
     except Exception as e:
         print(f"VPC deletion error: {e}")
 
-
 # ---------------------------
 def delete_glue():
     print("\nDeleting Glue Resources...")
